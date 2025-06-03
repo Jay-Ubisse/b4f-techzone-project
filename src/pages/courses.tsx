@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { MagnifyingGlass } from "@phosphor-icons/react";
+import { motion } from "framer-motion";
 
 import { Header } from "../components/header";
 import { Footer } from "../components/footer";
@@ -46,10 +47,22 @@ export const Courses = () => {
             Actualizar lista
           </button>
         </div>
-        <h1 className="text-cyan-700 text-3xl font-medium">Nossos cursos</h1>
+        <motion.h1
+          animate={{ x: 100 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: [0, 0.71, 0.2, 1.01] }}
+          className="text-cyan-700 text-3xl font-medium"
+        >
+          Nossos cursos
+        </motion.h1>
         <section className="grid grid-cols-4 gap-10">
           {courses.map((course) => (
-            <div
+            <motion.div
+              animate={{ x: 100 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.8,
+                ease: [0, 0.71, 0.2, 1.01],
+              }}
               key={course.id}
               className="bg-white shadow-md rounded-lg p-5 my-5"
             >
@@ -64,7 +77,7 @@ export const Courses = () => {
               >
                 {course.isFree ? "Gratuito" : "Pago"}
               </p>
-            </div>
+            </motion.div>
           ))}
         </section>
       </main>

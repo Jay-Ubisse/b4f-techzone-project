@@ -1,20 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { Button } from "./ui/button";
 
-import { useSession } from "../contexts/session.tsx";
+//import { useSession } from "../contexts/session.tsx";
 
 const linkStyles = "hover:text-cyan-300";
 
 export const Header = () => {
-  const { isUserAuthenticated, toggleAuthentication } = useSession();
+  //const { isUserAuthenticated, toggleAuthentication } = useSession();
 
   return (
     <header className="bg-gradient-to-r from-cyan-500 to-cyan-900 px-20 py-10 text-white flex justify-between">
-      <h1 className="text-extraGG font-bold text-cinha-200">
-        B4F TechZone{" "}
-        <span className="text-2xl font-medium">
-          {isUserAuthenticated ? "| Coronel Ubisse" : ""}
-        </span>
-      </h1>
+      <h1 className="text-2xl font-bold text-cinha-200">B4F TechZone </h1>
       <div className="flex items-center gap-16">
         <nav className="space-x-8 text-lg">
           <NavLink
@@ -34,6 +30,14 @@ export const Header = () => {
             Cursos
           </NavLink>
           <NavLink
+            to="/community"
+            className={({ isActive }) =>
+              `${linkStyles} ${isActive ? "text-cyan-300" : ""}`
+            }
+          >
+            Comunidade
+          </NavLink>
+          <NavLink
             to="/about"
             className={({ isActive }) =>
               `${linkStyles} ${isActive ? "text-cyan-300" : ""}`
@@ -50,12 +54,17 @@ export const Header = () => {
             Contacto
           </NavLink>
         </nav>
-        <button
-          className="bg-white rounded-md text-cyan-600 px-4 py-2 font-medium"
-          onClick={() => toggleAuthentication()}
-        >
-          {isUserAuthenticated ? "Terminar Sessão" : "Iniciar Sessão"}
-        </button>
+        <div className="space-x-4">
+          <Link to={"#"}>Iniciar sessão</Link>
+          <Link to="/register">
+            <Button
+              size={"sm"}
+              className="bg-white rounded-md text-cyan-600 px-4 py-2 font-medium"
+            >
+              Registrar-se
+            </Button>
+          </Link>
+        </div>
       </div>
     </header>
   );
