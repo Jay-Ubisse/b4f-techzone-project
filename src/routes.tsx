@@ -7,6 +7,7 @@ import {
   ContactPage,
   Community,
   RegisterUser,
+  Login,
 } from "./pages";
 
 const router = createBrowserRouter([
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterUser />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
 

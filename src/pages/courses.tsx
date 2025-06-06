@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { MagnifyingGlass } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
+import { Navigate } from "react-router-dom";
 
 import { Header } from "../components/header";
 import { Footer } from "../components/footer";
@@ -8,6 +9,12 @@ import type { CourseProps } from "../types/courses";
 import { coursesData } from "../data/courses";
 
 export const Courses = () => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    return <Navigate to={"/"} />;
+  }
+
   const [refresh, setRefresh] = useState(0);
   const [courses, setCourses] = useState<CourseProps[]>([]);
 

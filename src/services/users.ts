@@ -2,9 +2,17 @@ import type { UserProps } from "../types/users";
 
 const host = import.meta.env.VITE_HOST;
 
-export async function getUsers(): Promise<UserProps[] | undefined> {
+export async function getUsers({
+  token,
+}: {
+  token: string | null;
+}): Promise<UserProps[] | undefined> {
   try {
-    const response = await fetch(`${host}/users/`);
+    const response = await fetch(`${host}/users/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = await response.json();
     return data.users;
   } catch (error) {
@@ -18,7 +26,7 @@ export async function getUser({
   id: number;
 }): Promise<UserProps | undefined> {
   try {
-    const response = await fetch(`${host}/users/${id}`);
+    const response = await fetch(`${host}/users/${id}`, {});
     const data = await response.json();
     return data.user;
   } catch (error) {

@@ -1,8 +1,15 @@
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { UsersTable } from "@/components/users-table";
+import { Navigate } from "react-router-dom";
 
 export const Community = () => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    return <Navigate to={"/"} />;
+  }
+
   return (
     <>
       <Header />

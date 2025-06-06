@@ -1,13 +1,19 @@
 import { createContext, useContext, useState } from "react";
 
 interface SessionContextProps {
-  isUserAuthenticated: boolean;
-  toggleAuthentication: () => void;
+  session: { id: string; name: string; email: string };
+  clearSession: () => void;
+  saveSession: ({
+    user,
+  }: {
+    user: { id: string; name: string; email: string };
+  }) => void;
 }
 
 const SessionContext = createContext<SessionContextProps>({
-  isUserAuthenticated: false,
-  toggleAuthentication: () => {},
+  session: { email: "", id: "", name: "" },
+  clearSession: () => {},
+  saveSession: () => {},
 });
 
 export const SessionProvider = ({
@@ -15,16 +21,22 @@ export const SessionProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
+  const [session, setSession] = useState({ email: "", id: "", name: "" });
 
-  function toggleAuthentication() {
-    setIsUserAuthenticated(!isUserAuthenticated);
+  function clearSession() {
+    setSession({ email: "", id: "", name: "" });
+  }
+
+  function saveSession({
+    user,
+  }: {
+    user: { id: string; name: string; email: string };
+  }) {
+    setSession({ email: user.email, name: user.name, id: user.id });
   }
 
   return (
-    <SessionContext.Provider
-      value={{ isUserAuthenticated, toggleAuthentication }}
-    >
+    <SessionContext.Provider value={{ session, clearSession, saveSession }}>
       {children}
     </SessionContext.Provider>
   );

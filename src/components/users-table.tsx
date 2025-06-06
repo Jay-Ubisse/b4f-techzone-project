@@ -16,10 +16,11 @@ import { Info } from "lucide-react";
 
 export const UsersTable = () => {
   const [users, setUsers] = useState<UserProps[] | undefined>([]);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     async function fetchUsers() {
-      const data = await getUsers();
+      const data = await getUsers({ token });
       setUsers(data);
     }
 
@@ -35,7 +36,6 @@ export const UsersTable = () => {
       <TableCaption>Lista dos usuários da plataforma.</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">ID</TableHead>
           <TableHead>Nome</TableHead>
           <TableHead>Email</TableHead>
           <TableHead></TableHead>
@@ -43,8 +43,7 @@ export const UsersTable = () => {
       </TableHeader>
       <TableBody>
         {users.map((user) => (
-          <TableRow key={user.id}>
-            <TableCell className="font-medium">{user.id}</TableCell>
+          <TableRow key={user._id}>
             <TableCell>{user.name}</TableCell>
             <TableCell>{user.email}</TableCell>
             <TableCell className="text-right">
